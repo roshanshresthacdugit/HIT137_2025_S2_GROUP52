@@ -3,3 +3,4 @@ software now assignment 2
 
 
 question 1 discussion
+question 2 discussion 
