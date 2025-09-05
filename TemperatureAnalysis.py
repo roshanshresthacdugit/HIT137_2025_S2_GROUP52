@@ -46,18 +46,7 @@ class TemperatureAnalysis:
     
     def largest_temp_range(self, output_file_path="largest_temp_range_station.txt"):
         """Find and save the station with the largest temperature range."""
-        stats = self.reshaped_df.groupby("STATION_NAME")["Temperature"].agg(['min', 'max'])
-        stats['range'] = stats["max"] - stats["min"]
- 
-        max_range = stats["range"].max()
-        top_stations = stats[stats["range"] == max_range]
- 
-        with open(output_file_path, "w") as f:
-            for station, row in top_stations.iterrows():
-                f.write(
-                    f"Station {station}: Range {row['range']:.1f}°C "
-                    f"(Max: {row['max']:.1f}°C, Min: {row['min']:.1f}°C)\n"
-                )
+        
                 
     def temperature_stability(self, output_file_path="temperature_stability_stations.txt"):
         """Find and save the most stable and most variable stations."""
