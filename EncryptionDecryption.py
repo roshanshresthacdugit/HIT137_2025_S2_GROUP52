@@ -41,8 +41,25 @@ class EncryptionDecryption:
             else:
                 result.append(char)
         return "".join(result)
+    
+    def decrypt(self, text: str) -> str:
+        """Decrypt the input text."""
+        result = []
+        for char in text:
+            if 'a' <= char <= 'm':
+                result.append(self.shift_char(char, -(self.shift1_mul_shift2), 'a', 'm'))
+            elif 'n' <= char <= 'z':
+                result.append(self.shift_char(char, self.shift1_add_shift2, 'n', 'z'))
+            elif 'A' <= char <= 'M':
+                result.append(self.shift_char(char, self.shift1, 'A', 'M'))
+            elif 'N' <= char <= 'Z':
+                result.append(self.shift_char(char, -(self.shift2**2), 'N', 'Z'))
+            else:
+                result.append(char)
+        return "".join(result)
+
  
-def verify_decryption(self, original_text: str, decrypted_text: str) -> bool:
+    def verify_decryption(self, original_text: str, decrypted_text: str) -> bool:
         """Verify if the decrypted text is identical to the original."""
         return original_text == decrypted_text
  
@@ -61,7 +78,8 @@ def main():
     enc_dec = EncryptionDecryption(shift1, shift2)
     raw_text = "raw_text.txt"
     encrypted_file_name = "encrypted_text.txt"
- 
+    decrypted_file_name = "decrypted_text.txt"
+
     try:
          with open(raw_text, 'r') as f:
             text = f.read()
@@ -75,7 +93,12 @@ def main():
         f.write(encrypted)
     print(f"Encrypted file saved as '{encrypted_file_name}'")
     
-    decrypted="Subash"
+    print("\n--- Decryption Started ---")
+    decrypted = enc_dec.decrypt(encrypted)
+    with open(decrypted_file_name, 'w') as f:
+        f.write(decrypted)
+    print(f"Decrypted file saved as '{decrypted_file_name}'")
+
     print("\n--- Verification ---")
     if enc_dec.verify_decryption(text, decrypted):
       print("Verification successful: The decrypted text matches the original.")

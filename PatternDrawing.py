@@ -77,3 +77,28 @@ class FractalPolygonDrawer:
         self.draw_fractal_polygon()
         self.screen.mainloop()
 
+def main():
+
+    while True:
+        try:
+            sides = int(input("Enter the number of sides: "))
+            length = int(input("Enter the side length: "))
+            depth = int(input("Enter the recursion depth: "))
+            if sides < 3 or length <= 0 or depth < 0:
+                raise ValueError
+            break
+        except ValueError:
+            print("Invalid input. Please enter integers only.")
+    
+    drawer = FractalPolygonDrawer(
+        sides,
+        length,
+        depth    
+    )
+    drawer.run()
+
+
+if __name__ == "__main__":
+    main()
+
+

@@ -49,7 +49,7 @@ class TemperatureAnalysis:
             for season in ["Summer","Autumn","Winter","Spring"]:
                 avg = seasonal_avg.get(season,float('nan'))
                 if pd.notna(avg):
-                    data.write(f"{season}: {avg:.1f}°C\n")
+                    data.write(f"{season}: {avg:.1f}°C\n") #to type degree hold alt 0176
     
     def largest_temp_range(self, output_file_path="largest_temp_range_station.txt"):
         """Find and save the station with the largest temperature range."""
