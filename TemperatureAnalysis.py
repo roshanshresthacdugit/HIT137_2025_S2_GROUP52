@@ -43,6 +43,13 @@ class TemperatureAnalysis:
     
     def seasonal_average(self, output_file_path="average_temp.txt"):
         """Calculate and save seasonal average temperatures."""
+        seasonal_avg = self.reshaped_df.groupby("Season")["Temperature"].mean()
+       
+        with open(output_file_path,"w") as data:
+            for season in ["Summer","Autumn","Winter","Spring"]:
+                avg = seasonal_avg.get(season,float('nan'))
+                if pd.notna(avg):
+                    data.write(f"{season}: {avg:.1f}°C\n")
     
     def largest_temp_range(self, output_file_path="largest_temp_range_station.txt"):
         """Find and save the station with the largest temperature range."""
