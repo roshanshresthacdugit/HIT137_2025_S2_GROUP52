@@ -1,7 +1,18 @@
+"""
+Question 3: Recursive Fractal Polygon Drawer
+=============================================================================
+This program uses recursion to draw fractal polygons with turtle graphics.
+The user provides:
+- Number of sides
+- Side length
+- Recursion depth
+"""
+
 import turtle
  
  
 class FractalPolygonDrawer:
+    """Class to handle fractal polygon drawing with turtle graphics."""
  
     def __init__(self, sides=4, length=300, depth=3):
         self.sides = sides
@@ -17,6 +28,13 @@ class FractalPolygonDrawer:
         self.t.hideturtle()  
     
     def draw_fractal_edge(self, length, depth):
+        """
+        Recursively draw one edge of the fractal polygon.
+
+        Args:
+            length (float): Length of the edge.
+            depth (int): Recursion depth.
+        """
      
         if depth == 0:
             self.t.forward(length)
