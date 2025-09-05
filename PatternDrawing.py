@@ -74,6 +74,6 @@ class FractalPolygonDrawer:
         Start the fractal drawing process.
         """
         self.position_turtle()
-
-
+        self.draw_fractal_polygon()
+        self.screen.mainloop()
 
