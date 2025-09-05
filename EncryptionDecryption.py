@@ -25,6 +25,27 @@ class EncryptionDecryption:
         base = ord(start)
         size = ord(end) - ord(start) + 1
         return chr((ord(char) - base + shift) % size + base)
+    
+    def encrypt(self, text: str) -> str:
+        """Encrypt the input text."""
+        result = []
+        for char in text:
+            if 'a' <= char <= 'm':
+                result.append(self.shift_char(char, self.shift1_mul_shift2, 'a', 'm'))
+            elif 'n' <= char <= 'z':
+                result.append(self.shift_char(char, -(self.shift1_add_shift2), 'n', 'z'))
+            elif 'A' <= char <= 'M':
+                result.append(self.shift_char(char, -self.shift1, 'A', 'M'))
+            elif 'N' <= char <= 'Z':
+                result.append(self.shift_char(char, self.shift2**2, 'N', 'Z'))
+            else:
+                result.append(char)
+        return "".join(result)
+ 
+def verify_decryption(self, original_text: str, decrypted_text: str) -> bool:
+        """Verify if the decrypted text is identical to the original."""
+        return original_text == decrypted_text
+ 
 
 def main():
 
@@ -38,6 +59,30 @@ def main():
             print("Invalid input. Please enter integers only.")
 
     enc_dec = EncryptionDecryption(shift1, shift2)
+    raw_text = "raw_text.txt"
+    encrypted_file_name = "encrypted_text.txt"
+ 
+    try:
+         with open(raw_text, 'r') as f:
+            text = f.read()
+    except FileNotFoundError:
+            print("Error: 'raw_text.txt' not found. Please create the file and try again.")
+            return
+    
+    print("\n--- Encryption Started ---")
+    encrypted = enc_dec.encrypt(text)
+    with open(encrypted_file_name, 'w') as f:
+        f.write(encrypted)
+    print(f"Encrypted file saved as '{encrypted_file_name}'")
+    
+    decrypted="Subash"
+    print("\n--- Verification ---")
+    if enc_dec.verify_decryption(text, decrypted):
+      print("Verification successful: The decrypted text matches the original.")
+    else:
+         print("Verification failed: The decrypted text does not match the original.")
+ 
+ 
 
 
 if __name__ == "__main__":
