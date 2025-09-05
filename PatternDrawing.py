@@ -35,7 +35,8 @@ class FractalPolygonDrawer:
             length (float): Length of the edge.
             depth (int): Recursion depth.
         """
-     
+    
+
         if depth == 0:
             self.t.forward(length)
             return
@@ -50,4 +51,29 @@ class FractalPolygonDrawer:
         self.draw_fractal_edge(segment_length, depth - 1)
         self.t.right(60)
         self.draw_fractal_edge(segment_length, depth - 1)
-        
+
+    def draw_fractal_polygon(self):
+        """
+        Draw the full fractal polygon by drawing each side with fractal edges.
+        """
+        angle = 360.0 / self.sides
+        for _ in range(self.sides):
+            self.draw_fractal_edge(self.length, self.depth)
+            self.t.right(angle)
+
+    def position_turtle(self):
+        """
+        Position the turtle at the starting point for drawing.
+        """
+        self.t.penup()
+        self.t.goto(-self.length / 2, self.length / 2)
+        self.t.pendown()
+
+    def run(self):
+        """
+        Start the fractal drawing process.
+        """
+        self.position_turtle()
+
+
+

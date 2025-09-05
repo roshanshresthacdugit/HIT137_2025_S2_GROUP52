@@ -67,6 +67,17 @@ class TemperatureAnalysis:
                 
     def temperature_stability(self, output_file_path="temperature_stability_stations.txt"):
         """Find and save the most stable and most variable stations."""
+        stds = self.reshaped_df.groupby("STATION_NAME")["Temperature"].std()
+        min_std = stds.min()
+        max_std = stds.max()
+        stable_stations = stds[stds == min_std]
+        variable_stations = stds[stds == max_std]
+
+        with open(output_file_path, "w") as data:
+            for station, value in stable_stations.items():
+                data.write(f"Most stable: Station {station}: StdDev {value:.1f}°C\n")
+            for station, value in variable_stations.items():
+                data.write(f"Most Variable: Station {station}: StdDev {value:.1f}°C\n")
 
 
 
